@@ -334,7 +334,7 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
- grafana:
+  grafana:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
