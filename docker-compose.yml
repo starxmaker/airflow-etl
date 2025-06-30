@@ -343,8 +343,6 @@ services:
       - postgres
     volumes:
       - grafana-storage:/var/lib/grafana
-    environment:
-      GF_INSTALL_PLUGINS: "grafana-worldmap-panel,grafana-geomap-panel"
 
 volumes:
   postgres-db-volume:
