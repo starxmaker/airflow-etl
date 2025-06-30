@@ -334,5 +334,18 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+ grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "80:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      GF_INSTALL_PLUGINS: "grafana-worldmap-panel,grafana-geomap-panel"
+
 volumes:
   postgres-db-volume:
+  grafana-storage:
