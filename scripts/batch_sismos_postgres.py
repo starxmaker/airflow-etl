@@ -93,7 +93,11 @@ try:
     for filename in files:
         print(f"comienza procesamiento archivo {filename}...")
         path_file = os.path.join(source, filename)
-        df = pd.read_csv(path_file)
+        try:
+            df = pd.read_csv(path_file)
+        except Exception as e:
+            print(f"Error leyendo {filename}: {e}. Saltando archivo.")
+            continue
         # crea un índice único en el dataframe por fecha
         df.set_index('Fecha', inplace=True)
         lats = []
