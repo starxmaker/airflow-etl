@@ -22,6 +22,9 @@ def get_coordinates(city_name):
         lon = coordenadas[1]
         return lat, lon
     time.sleep(1) # requisito de la API
+    email = os.getenv('USER_EMAIL')
+    if email is None:
+         raise ValueError("Email no provisto")
     base_url = "https://nominatim.openstreetmap.org/search"
     params = {
         'q': f"{city_name}, Chile",
@@ -29,7 +32,7 @@ def get_coordinates(city_name):
         'limit': 1
     }
     headers = {
-        'User-Agent': os.getenv('APP_IDENTIFIER')
+        'User-Agent': email
     }
 
     response = requests.get(base_url, params=params, headers=headers)
@@ -77,11 +80,11 @@ def calculate_new_coordinates(lat, lon, distance_km, direction):
 load_dotenv()
 
 # cargar parametros de conexión
-PG_HOST = os.getenv('POSTGRES_HOST')
-PG_PORT = os.getenv('POSTGRES_PORT')
-PG_DB = os.getenv('POSTGRES_DB')
-PG_USER = os.getenv('POSTGRES_USER')
-PG_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+PG_HOST = os.getenv('POSTGRES_HOST', "localhost")
+PG_PORT = os.getenv('POSTGRES_PORT', "5432")
+PG_DB = os.getenv('POSTGRES_DB', "airflow")
+PG_USER = os.getenv('POSTGRES_USER', "airflow")
+PG_PASSWORD = os.getenv('POSTGRES_PASSWORD', "airflow")
 
 # conectar a base de datos
 DATABASE_URL = f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DB}"
