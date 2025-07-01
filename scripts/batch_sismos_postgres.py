@@ -91,6 +91,7 @@ files = sorted([
 
 try:
     for filename in files:
+        print(f"comienza procesamiento archivo {filename}...")
         path_file = os.path.join(source, filename)
         df = pd.read_csv(path_file)
         # crea un índice único en el dataframe por fecha
