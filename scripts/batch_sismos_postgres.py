@@ -8,11 +8,20 @@ import time
 import math
 from pangres import upsert
 
+coordenadas_conocidas = {
+    "Mina La Escondida": [-24.2667, -69.0667]
+}
+
 # caché para no llamar siempre a la API
 @lru_cache(maxsize=1000)
 def get_coordinates(city_name):
-    time.sleep(1) # requisito de la API
     print(f"Obteniendo coordenadas de {city_name}")
+    if (city_name in coordenadas_conocidas):
+        coordenadas = coordenadas_conocidas[city_name]
+        lat = coordenadas[0]
+        lon = coordenadas[1]
+        return lat, lon
+    time.sleep(1) # requisito de la API
     base_url = "https://nominatim.openstreetmap.org/search"
     params = {
         'q': f"{city_name}, Chile",
