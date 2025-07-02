@@ -45,8 +45,10 @@ class CSVHandler(FileSystemEventHandler):
             filtered_df = sorted_df
         self._ultima_fecha = df['Fecha'].max()
         for _, fila in filtered_df.iterrows():
-            if float(fila["Magnitud"]) >= 4:
-                message=f"Alerta! Temblor magnitud {fila["Magnitud"]} en {fila["Lugar"]}"
+            magnitud = float(fila["Magnitud"])
+            if magnitud >= 4:
+                lugar=fila["Lugar"]
+                message=f"Alerta! Temblor magnitud {magnitud} en {lugar}"
                 print(message)
                 send_message(phone_to, message)
 
