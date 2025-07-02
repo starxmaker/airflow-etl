@@ -9,7 +9,8 @@ import math
 from pangres import upsert
 
 coordenadas_conocidas = {
-    "Mina La Escondida": [-24.2667, -69.0667]
+    "Mina La Escondida": [-24.2667, -69.0667],
+    "San Antonio de los Cobres": [-24.2145508,-66.318568]
 }
 
 # caché para no llamar siempre a la API
