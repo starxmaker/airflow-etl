@@ -43,6 +43,9 @@ class CSVHandler(FileSystemEventHandler):
             filtered_df = sorted_df[sorted_df['Fecha'] > self._ultima_fecha]
         else:
             filtered_df = sorted_df
+        if len(filtered_df) == 0:
+            print(f"{archivo_path}: Sin registros nuevos.")
+            return
         self._ultima_fecha = df['Fecha'].max()
         for _, fila in filtered_df.iterrows():
             magnitud = float(fila["Magnitud"])
