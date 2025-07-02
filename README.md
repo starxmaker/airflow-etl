@@ -6,10 +6,29 @@ El siguiente repositorio contiene un ejemplo de ingesta, procesamiento, almacena
 
 - Docker
 - Al menos 4 GB de memoria disponible (8 GB recomendados)
+- Python 3.10+
 
 ## Ejecución
 
-### Ingesta y procesamiento streaming
+### Pasos previos
+
+Primero asegurarse de tener instalado Python 3
+
+    python3 --version
+
+Luego, crear un ambiente virtual
+
+    python3 -m venv venv
+
+Posteriormente se debe habilitar el ambiente local.
+
+    source venv/bin/activate
+
+A continuación, instalar dependencias
+
+    pip install -r requirements.txt
+
+### Ingesta
 
 Primero, se debe clonar el repositorio actual.
 
@@ -29,23 +48,28 @@ Una vez se levante la aplicación, dirigirse a `localhost:8080` e ingresar el us
 
 Si la ejecución es correcta, se verán los resultados en la carpeta `./data/sismos`. En caso de fallas, revisar la carpeta `./logs`
 
+### Procesamiento streaming
+
+El presente proyecto cuenta con un demo de procesamiento streaming en los que revisa los sismos recibidos y alerta a través de SMS si la magnitud supera un umbral.
+
+Abrir el archivo `.env` y agregar las siguientes variables:
+
+ - `TWILIO_ACCOUNT_ID`: Identificador de cuenta de Twilio (se puede crear una cuenta gratuita)
+ - `TWILIO_AUTH_TOKEN`: Token de autenticación con Twilio
+ - `TWILIO_FROM`: Número de teléfono de origen (configurar en Twilio)
+ - `TWILIO_TO`: Número de destino
+
+Luego creamos una carpeta de prueba:
+
+    mkdir -P ./data/sismos-test
+
+Finalmente ejecutamos el script:
+
+    python scripts/streaming_sismos_alertas.py
+
+Para probar que funciona, copiar el archivo `sample.csv` de la raíz en `./data/sismos-test`. Deberá aparecer un mensaje en la consola y también recibir un SMS al número indicado.
+
 ### Almacenamiento y procesamiento batch
-
-Primero asegurarse de tener instalado Python 3
-
-    python3 --version
-
-Luego, crear un ambiente virtual
-
-    python3 -m venv venv
-
-Posteriormente se debe habilitar el ambiente local.
-
-    source venv/bin/activate
-
-A continuación, instalar dependencias
-
-    pip install -r requirements.txt
 
 Abrir el archivo `.env` y agregar la siguiente variable:
 
