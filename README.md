@@ -61,7 +61,7 @@ Abrir el archivo `.env` y agregar las siguientes variables:
 
 Luego creamos una carpeta de prueba:
 
-    mkdir -P ./data/sismos-test
+    mkdir -p ./data/sismos-test
 
 Finalmente ejecutamos el script:
 
